@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset=utf-8 />
+  <title>Stepper Input Example</title>
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.css'>
+  <link rel='stylesheet' type='text/css' href='./css/compiled.css' />
+  <!--[if IE]>
+    <script src='http://html5shiv.googlecode.com/svn/trunk/html5.js'></script>
+  <![endif]-->
+</head>
+<body>
+
+<form class='stepper'>
+  <button class='subtract' type='button'>-</button>
+  <input class='field left' type='number' min='0' max='10' />
+  <button class='add' type='button'>+</button>
+</form>
+
+<form class='stepper'>
+  <input class='field' type='number' min='0' max='10' />
+  <button class='subtract left' type='button'>-</button>
+  <button class='add' type='button'>+</button>
+</form>
+
+<script src='./js/stepper-example.min.js'></script>
+</body>
+</html>
