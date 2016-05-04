@@ -6,43 +6,57 @@ Object.defineProperty(exports, "__esModule", {
 function getNum(str) {
   return parseInt(str, 10);
 };
+function roundToNearestStep(n, step) {
+  if (n > 0) {
+    return Math.ceil(n / step) * step;
+  } else if (n < 0) {
+    return Math.floor(n / step) * step;
+  } else {
+    return step;
+  }
+}
 
-function onClick(amount, buttons, field) {
+function onClick(amount, stepper) {
   if (amount === 0) return;
-  if (!field.validity.valid || field.value === '') field.value = 0;
+  if (!stepper.field.validity.valid || stepper.field.value === '') stepper.field.value = 0;
 
-  if (amount < 0 && getNum(field.value) <= getNum(field.min)) return;else if (amount > 0 && getNum(field.value) >= getNum(field.max)) return;
+  if (amount < 0 && getNum(stepper.field.value) <= getNum(stepper.field.min) || amount > 0 && getNum(stepper.field.value) >= getNum(stepper.field.max)) return;
 
-  field.value = getNum(field.value) + amount;
-  checkValidity(buttons, field);
+  stepper.field.value = getNum(stepper.field.value) + amount;
+  checkValidity(stepper);
 };
 
-function checkValidity(buttons, field) {
-  // Disable increments that surpass thresholds.
-  if (field.validity.valid) {
-    buttons.neg.disabled = getNum(field.value) <= getNum(field.min);
-    buttons.pos.disabled = getNum(field.value) >= getNum(field.max);
-  } else {
-    field.value = 0;
-  }
+function checkValidity(stepper) {
+  var VALUE = getNum(stepper.field.value);
+  stepper.buttons.neg.disabled = VALUE <= getNum(stepper.field.min);
+  stepper.buttons.pos.disabled = VALUE >= getNum(stepper.field.max);
 };
 
 exports.default = {
+  bindStepper: function bindStepper(stepper, opts) {
+    // Bind field
+    stepper.field.addEventListener('input', checkValidity.bind(this, stepper));
+    // Bind buttons
+    stepper.buttons.neg.addEventListener('click', onClick.bind(this, -(getNum(stepper.field.step) || 1), stepper));
+    stepper.buttons.pos.addEventListener('click', onClick.bind(this, getNum(stepper.field.step) || 1, stepper));
+  },
+
   bindAll: function bindAll(opts) {
     opts = opts || {};
-    var steppers = document.getElementsByClassName(opts.stepper || 'stepper');
+    opts.classes = opts.classes || {};
+    var $steppers = document.getElementsByClassName(opts.stepper || 'stepper');
 
-    for (var i = 0; i < steppers.length; i++) {
-      var pos = steppers[i].getElementsByClassName(opts.add || 'add')[0];
-      var neg = steppers[i].getElementsByClassName(opts.subtract || 'subtract')[0];
-      var field = steppers[i].getElementsByClassName(opts.field || 'field')[0];
+    for (var i = 0; i < $steppers.length; i++) {
+      var stepper = {
+        buttons: {
+          pos: $steppers[i].getElementsByClassName(opts.classes.add || 'add')[0],
+          neg: $steppers[i].getElementsByClassName(opts.classes.subtract || 'subtract')[0]
+        },
+        field: $steppers[i].getElementsByClassName(opts.classes.field || 'field')[0]
+      };
 
-      // Bind field
-      field.addEventListener('change', checkValidity.bind(this, { neg: neg, pos: pos }, field));
-
-      // Bind buttons
-      neg.addEventListener('click', onClick.bind(this, -1, { neg: neg, pos: pos }, field));
-      pos.addEventListener('click', onClick.bind(this, 1, { neg: neg, pos: pos }, field));
+      if (stepper.field.disabled) return; // Don't bind on disabled fields.
+      this.bindStepper(stepper, opts);
     }
   }
 };
