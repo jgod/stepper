@@ -1,0 +1,34 @@
+$blue: #0074d9;
+$red: #ff4136;
+$white: #fefefe;
+$black: #00000f;
+
+textarea,
+input {-webkit-appearance: none; outline: none;}
+
+* {user-select: none;}
+
+.stepper {
+  margin: 0;
+  padding: 0;
+
+  button,
+  input {
+    background-color: $white;
+    border: 0;
+    color: $black;
+    font-size: 16px;
+    margin: 0;
+    max-height: 32px;
+    padding: 8px;
+    text-align: center;
+  }
+
+  button {background-color: $blue; color: $white;}
+  button:disabled {visibility: hidden;}
+  button:hover {background-color: $red;}
+  button:active {background-color: $white; color: $blue;}
+  button:focus {outline: 0;}
+
+  .left {margin: -4px;}
+}
