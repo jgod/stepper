@@ -1,11 +1,11 @@
 # Stepper
 
-A simple numeric stepper with no dependencies, written in pure js.
+A simple numeric stepper for the frontend with no dependencies.
 
 ## Installation
 
 ```sh
-npm install --save-dev stepper-input
+npm install stepper-input --save
 ```
 
 ## Usage
@@ -32,17 +32,11 @@ Then you should style these classes and elements: `stepper`, `add`, `subtract`, 
 ```javascript
 import stepper from 'stepper-input';
 stepper.bindAll({
-  stepper: 'my-stepper-class',
-  add: 'my-adder-class',
-  subtract: 'my-subtract-class',
-  field: 'my-field-class'
+  classes: {
+    stepper: 'my-stepper-class', // default: 'stepepr'
+    add: 'my-adder-class', // default: 'add'
+    subtract: 'my-subtract-class', // default: 'subtract'
+    field: 'my-field-class' // default: 'field'
+  }
 });
 ```
-
-**stepper**: class for identifying steppers
-
-**add**: class for identifying stepper adders
-
-**subtract**: class for identifying stepper subtractors
-
-**field**: class for identifying stepper fields

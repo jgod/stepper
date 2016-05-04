@@ -1,6 +1,6 @@
 {
   "name": "stepper-input",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Simple numeric stepper UI component",
   "main": "./prod/js/stepper.min.js",
   "scripts": {
