@@ -1,6 +1,6 @@
 {
   "name": "stepper-input",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Simple numeric stepper UI component",
   "main": "./prod/js/stepper.min.js",
   "scripts": {
@@ -20,6 +20,10 @@
     "component"
   ],
   "author": "Justin Godesky",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jgod/stepper.git"
+  },
   "license": "MIT",
   "devDependencies": {
     "babel": "^6.5.2",
