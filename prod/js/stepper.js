@@ -6,15 +6,6 @@ Object.defineProperty(exports, "__esModule", {
 function getNum(str) {
   return parseInt(str, 10);
 };
-function roundToNearestStep(n, step) {
-  if (n > 0) {
-    return Math.ceil(n / step) * step;
-  } else if (n < 0) {
-    return Math.floor(n / step) * step;
-  } else {
-    return step;
-  }
-}
 
 function onClick(amount, stepper) {
   if (amount === 0) return;
@@ -57,6 +48,9 @@ exports.default = {
 
       if (stepper.field.disabled) return; // Don't bind on disabled fields.
       this.bindStepper(stepper, opts);
+
+      // Don't forget to Enable/Disable buttons based on the inital value
+      checkValidity(stepper);
     }
   }
 };

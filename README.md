@@ -20,7 +20,7 @@ Add this "component"
 ```html
 <form class='stepper'>
   <button class='subtract' type='button'>-</button>
-  <input class='field' type='number' min='0' max='10' />
+  <input class='field' type='number' value='0' min='0' max='10' />
   <button class='add' type='button'>+</button>
 </form>
 ```
